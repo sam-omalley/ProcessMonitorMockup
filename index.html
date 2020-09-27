@@ -65,6 +65,36 @@
   </div>
 
   <script>
+    const container = document.querySelector(".container__hosts");
+    const host = document.querySelector(".host");
+
+    for (let i = 2; i < 20; ++i)
+    {
+      let newHost = host.cloneNode(true);
+      newHost.querySelector(".host__name").textContent = `sam-p${i.toString().padStart(3, '0')}`
+
+      newHost.querySelectorAll(".process").forEach(value => {
+        value.className = "process";
+
+        let choices = ["process--running", "process--error", "process--stopped"];
+        let index = Math.floor(Math.random() * choices.length);
+        value.classList.add(choices[index]);
+      });;
+
+      container.appendChild(newHost);
+    }
+
+    document.querySelectorAll(".process").forEach(process => {
+      process.addEventListener('click', (e) => {
+        let collapsedClass = "process--collapsed";
+        if (e.currentTarget.classList.contains(collapsedClass)) {
+          e.currentTarget.classList.remove(collapsedClass);
+        } else {
+          e.currentTarget.classList.add(collapsedClass);
+        }
+      });
+    });
+
     window.setInterval(updateProgress, 100);
   </script>
 </body>

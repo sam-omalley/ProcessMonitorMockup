@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="perlin.js">
+  </script>
+  <script>
+    noise.seed(Math.random());
+
+    const startTime = new Date().getTime();
+    const playRate = 1;
+    const separation = 10;
+
+    function updateProgress() {
+      let timeOffset = (new Date().getTime() - startTime) / 1000.0;
+      timeOffset *= playRate;
+      let counter = 0;
+      document.querySelectorAll(".progress__fill").forEach(value => {
+        let p = Math.floor(Math.abs(noise.simplex2(counter++ * separation, timeOffset)) * 100);
+        value.style = `height: ${p}%;`;
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="container__hosts">
+      <div class="host" host_name="sam-p001">
+        <h2 class="host__name">sam-p001</h2>
+        <div class="host__cpu progress">
+          <span class="progress__fill progress__fill--cpu" style="height: 70%;"></span>
+        </div>
+        <div class="host__mem progress">
+          <span class="progress__fill progress__fill--mem" style="height: 12%;"></span>
+        </div>
+        <div class="host__icon host__icon--running"></div>
+        <div class="host__processes">
+          <div class="process process--stopped" pid="1234">
+            <h2 class="process__name">proc001</h2>
+          </div>
+          <div class="process process--running process--collapsed" pid="2345">
+            <h2 class="process__name">proc002</h2>
+          </div>
+          <div class="process process--error" pid="3456">
+            <h2 class="process__name">proc003</h2>
+          </div>
+          <div class="process process--error" pid="3457">
+            <h2 class="process__name">proc004</h2>
+          </div>
+          <div class="process process--error" pid="3458">
+            <h2 class="process__name">proc005</h2>
+          </div>
+          <div class="process process--error" pid="3459">
+            <h2 class="process__name">proc006</h2>
+          </div>
+          <div class="process process--error" pid="3460">
+            <h2 class="process__name">proc007</h2>
+          </div>
+          <div class="process process--error" pid="3461">
+            <h2 class="process__name">proc008</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.setInterval(updateProgress, 100);
+  </script>
+</body>
+</html>
